@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>한모금 - 조용히 한 잔 하고 가세요</title>
+<meta name="description" content="성남 주택가 골목에 있는 작은 카페, 한모금입니다. 혼자 오셔도 편하도록 자리를 넓게 두었습니다.">
+<style>
+/* Pretendard Variable — 유일한 브랜드 글꼴. 대체 금지.
+   NOTE: 로컬 폰트 바이너리를 제공받지 못해 공개 CDN(jsDelivr)의 woff2를 참조한다.
+   폰트 파일을 전달받으면 src를 로컬 경로로 교체할 것. */
+@font-face{font-family:"Pretendard Variable";font-weight:45 920;font-style:normal;font-display:swap;src:url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/variable/woff2/PretendardVariable.woff2") format("woff2-variations")}
+
+:root{
+--blue-600:#0050A8;--blue-800:#003C7E;--blue-50:#E8F0F9;
+--paper:#FBF9F5;--white:#FFFFFF;--paper-warm:#F5F1EA;
+--ink-900:#2A2622;--ink-500:#6B655D;--ink-line:#E4DFD6;--caramel-600:#B8722C;
+
+/* 주색 */
+--primary:var(--blue-600);--primary-dark:var(--blue-800);--primary-tint:var(--blue-50);
+/* 배경과 면 — 순백은 페이지 배경으로 쓰지 않는다 */
+--background:var(--paper);--surface:var(--white);--surface-warm:var(--paper-warm);
+/* 글자 */
+--ink:var(--ink-900);--ink-muted:var(--ink-500);--ink-inverse:var(--paper);
+/* 선과 보조 — accent는 한 화면에 한두 곳 */
+--line:var(--ink-line);--accent:var(--caramel-600);
+/* 사진 위 글자 보호용 어두운 면 (그라디언트 금지) */
+--scrim:rgba(42,38,34,0.55);
+}
+
+:root{
+--font-sans:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+
+--weight-regular:400;--weight-medium:500;--weight-semibold:600;
+
+/* PC 크기 */
+--text-display:40px;--text-title:32px;--text-section:24px;--text-subtitle:20px;
+--text-body:16px;--text-body-sm:14px;--text-caption:13px;--text-number:16px;
+/* 모바일 크기 (본문 이하는 줄이지 않는다) */
+--text-display-m:30px;--text-title-m:26px;--text-section-m:21px;--text-subtitle-m:18px;
+
+--tracking-display:-0.02em;--tracking-title:-0.015em;--tracking-section:-0.01em;--tracking-normal:0;
+
+--leading-display:1.25;--leading-title:1.3;--leading-section:1.35;--leading-subtitle:1.4;
+--leading-body:1.7;--leading-body-sm:1.6;--leading-caption:1.5;--leading-number:1.4;
+
+/* 한 단락 폭: 한글 34자 / 영문 68자 */
+--measure:34ch;
+}
+
+:root{
+--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;
+--space-8:32px;--space-12:48px;--space-16:64px;--space-24:96px;
+
+--section-gap:96px;--section-gap-m:64px;
+--heading-gap:16px;--card-padding:24px;--card-gap:24px;
+
+--container:1120px;--gutter:32px;--gutter-m:20px;--gutter-tablet:24px;
+
+--control-height:48px;--control-height-m:52px;--control-padding-x:24px;--touch-min:44px;
+
+--bp-tablet:768px;--bp-desktop:1120px;
+}
+
+:root{
+--radius-control:8px;--radius-card:12px;--radius-flat:0px;
+--border-width:1px;
+/* 그림자는 예외적으로만. 카드마다 넣지 않는다. */
+--shadow-subtle:0 1px 2px rgba(42,38,34,0.06);
+--transition:160ms ease-out;
+}
+
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--background);color:var(--ink);font-family:var(--font-sans);font-size:var(--text-body);line-height:var(--leading-body);font-weight:var(--weight-regular);-webkit-font-smoothing:antialiased;text-wrap:pretty}
+*,*::before,*::after{box-sizing:border-box}
+a{color:var(--primary);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--primary-dark)}
+h1,h2,h3,h4,p{margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+img{max-width:100%;display:block}
+.hm-tabular{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.hm-container{max-width:var(--container);margin:0 auto;padding-inline:var(--gutter-m)}
+@media (min-width:768px){.hm-container{padding-inline:var(--gutter-tablet)}}
+@media (min-width:1120px){.hm-container{padding-inline:var(--gutter)}}
+
+/* ── 페이지 전용 레이아웃 유틸리티 (원본 번들에 정의가 누락되어 있어
+   디자인 토큰 기준으로 새로 작성함) ── */
+.hm-section{padding-block:var(--section-gap-m)}
+@media (min-width:768px){.hm-section{padding-block:var(--section-gap)}}
+
+.hm-display{font-size:var(--text-display-m);font-weight:var(--weight-semibold);line-height:var(--leading-display);letter-spacing:var(--tracking-display)}
+@media (min-width:768px){.hm-display{font-size:var(--text-display)}}
+
+.hm-h2{font-size:var(--text-section-m);font-weight:var(--weight-semibold);line-height:var(--leading-section);letter-spacing:var(--tracking-section)}
+@media (min-width:768px){.hm-h2{font-size:var(--text-section)}}
+
+.hm-split{display:grid;grid-template-columns:1fr;gap:var(--space-8);align-items:center}
+@media (min-width:768px){.hm-split{grid-template-columns:1fr 1fr;gap:var(--space-12)}}
+
+.hm-cards{display:grid;grid-template-columns:1fr;gap:var(--card-gap)}
+.hm-cards-3{grid-template-columns:1fr}
+@media (min-width:768px){.hm-cards-3{grid-template-columns:repeat(3,1fr)}}
+
+/* ── 디자인 시스템 컴포넌트 (SiteHeader / Button / Card / SectionHeading /
+   InfoTable / NoticeBox / Divider / SiteFooter / PriceRow / ImagePlaceholder) ── */
+.hm-header{position:sticky;top:0;z-index:10;background:var(--surface);border-bottom:var(--border-width) solid var(--line)}
+.hm-header-inner{max-width:var(--container);margin:0 auto;padding-inline:var(--gutter-m);height:64px;display:flex;align-items:center;justify-content:space-between;gap:var(--space-4)}
+@media (min-width:1120px){.hm-header-inner{padding-inline:var(--gutter)}}
+.hm-brand{height:36px;width:auto;display:block}
+.hm-nav{display:flex;align-items:center;gap:var(--space-1);list-style:none;margin:0;padding:0;overflow-x:auto}
+.hm-nav-item{background:none;border:none;cursor:pointer;padding:var(--space-2) var(--space-3);border-radius:var(--radius-control);font-size:var(--text-body-sm);font-weight:var(--weight-medium);color:var(--ink-muted);white-space:nowrap;text-decoration:none;transition:var(--transition)}
+.hm-nav-item:hover{color:var(--ink);background:var(--surface-warm)}
+.hm-nav-item[aria-current="page"]{color:var(--primary);background:var(--primary-tint)}
+.hm-header-right{display:flex;align-items:center;gap:var(--space-3);flex-shrink:0}
+
+.hm-btn{display:inline-flex;align-items:center;justify-content:center;height:var(--control-height);padding-inline:var(--control-padding-x);border-radius:var(--radius-control);font-size:var(--text-body);font-weight:var(--weight-medium);text-decoration:none;cursor:pointer;border:var(--border-width) solid transparent;transition:var(--transition);white-space:nowrap}
+.hm-btn-primary{background:var(--primary);color:var(--white)}
+.hm-btn-primary:hover{background:var(--primary-dark);color:var(--white)}
+.hm-btn-secondary{background:transparent;color:var(--ink);border-color:var(--line)}
+.hm-btn-secondary:hover{background:var(--surface-warm);color:var(--ink)}
+.hm-btn-text{height:auto;padding:0;background:none;color:var(--primary);text-decoration:underline;text-underline-offset:3px}
+.hm-btn-text:hover{color:var(--primary-dark)}
+.hm-btn-sm{height:40px;font-size:var(--text-body-sm);padding-inline:var(--space-4)}
+
+.hm-card{background:var(--surface);border:var(--border-width) solid var(--line);border-radius:var(--radius-card);padding:var(--card-padding)}
+
+.hm-section-heading{display:flex;flex-direction:column;gap:var(--space-2)}
+.hm-section-heading .hm-heading-title{font-weight:var(--weight-semibold);letter-spacing:var(--tracking-section)}
+.hm-section-heading[data-level="section"] .hm-heading-title{font-size:var(--text-section-m)}
+.hm-section-heading[data-level="title"] .hm-heading-title{font-size:var(--text-title-m)}
+@media (min-width:768px){
+  .hm-section-heading[data-level="section"] .hm-heading-title{font-size:var(--text-section)}
+  .hm-section-heading[data-level="title"] .hm-heading-title{font-size:var(--text-title)}
+}
+.hm-section-heading .hm-heading-desc{font-size:var(--text-body-sm);line-height:var(--leading-body-sm);color:var(--ink-muted)}
+
+.hm-info-table{width:100%;border-collapse:collapse}
+.hm-info-table tr{border-bottom:var(--border-width) solid var(--line)}
+.hm-info-table tr:last-child{border-bottom:none}
+.hm-info-table td{padding:var(--space-3) 0;font-size:var(--text-body-sm)}
+.hm-info-table td:first-child{color:var(--ink-muted);width:6em}
+.hm-info-table td:last-child{color:var(--ink)}
+
+.hm-notice{background:var(--surface-warm);border:var(--border-width) solid var(--line);border-radius:var(--radius-card);padding:var(--space-4)}
+.hm-notice-title{font-size:var(--text-caption);font-weight:var(--weight-semibold);color:var(--ink-muted);margin-bottom:var(--space-1)}
+.hm-notice-body{font-size:var(--text-body-sm);line-height:var(--leading-body-sm);color:var(--ink)}
+
+.hm-divider{border:none;border-top:var(--border-width) solid var(--line);margin-block:var(--space-8)}
+
+.hm-price-row{display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-4);padding-block:var(--space-2);border-bottom:var(--border-width) solid var(--line)}
+.hm-price-row:last-child{border-bottom:none}
+.hm-price-name{font-size:var(--text-body-sm)}
+.hm-price-note{display:block;font-size:var(--text-caption);color:var(--ink-muted);margin-top:2px}
+.hm-price-amount{font-size:var(--text-body-sm);font-weight:var(--weight-medium)}
+.hm-price-amount.hm-tabular{white-space:nowrap}
+
+.hm-img{width:100%;height:auto;object-fit:cover;border-radius:var(--radius-card);background:var(--surface-warm)}
+.hm-img[data-ratio="4/3"]{aspect-ratio:4/3}
+.hm-img[data-ratio="16/9"]{aspect-ratio:16/9}
+.hm-img[data-ratio="1/1"]{aspect-ratio:1/1}
+
+.hm-footer{border-top:var(--border-width) solid var(--line);background:var(--surface-warm)}
+.hm-footer-inner{max-width:var(--container);margin:0 auto;padding:var(--space-8) var(--gutter-m);display:flex;flex-direction:column;gap:var(--space-2)}
+@media (min-width:1120px){.hm-footer-inner{padding-inline:var(--gutter)}}
+.hm-footer-brand{font-weight:var(--weight-semibold);font-size:var(--text-body)}
+.hm-footer-meta{font-size:var(--text-body-sm);color:var(--ink-muted)}
+.hm-footer-notes{font-size:var(--text-caption);color:var(--ink-muted);margin-top:var(--space-2)}
+.hm-footer-notes li{margin-top:2px}
+
+[data-tabpanel]{display:none}
+[data-tabpanel].is-active{display:block}
+</style>
+</head>
+<body>
+<div style="background:var(--background);min-height:100vh;display:flex;flex-direction:column">
+
+  <header class="hm-header">
+    <div class="hm-header-inner">
+      <img class="hm-brand" src="assets/images/img_logo.png" alt="한모금">
+      <nav class="hm-nav" aria-label="주요 메뉴">
+        <a href="#home" class="hm-nav-item" data-tab-link="home" aria-current="page">소개</a>
+        <a href="#menu" class="hm-nav-item" data-tab-link="menu">메뉴</a>
+        <a href="#class" class="hm-nav-item" data-tab-link="class">라떼아트</a>
+        <a href="#visit" class="hm-nav-item" data-tab-link="visit">찾아오는 길</a>
+      </nav>
+      <div class="hm-header-right">
+        <a class="hm-btn hm-btn-secondary hm-btn-sm" href="tel:0310000000">전화</a>
+      </div>
+    </div>
+  </header>
+
+  <main style="flex:1 1 auto">
+
+    <!-- 소개 (홈) -->
+    <div data-tabpanel="home" class="is-active">
+      <section style="background:var(--surface-warm)">
+        <div class="hm-container hm-section">
+          <div class="hm-split">
+            <div>
+              <p class="hm-display">조용히 한 잔 하고 가세요</p>
+              <p style="margin-top:var(--heading-gap);font-size:var(--text-body);line-height:var(--leading-body);color:var(--ink-muted);max-width:var(--measure)">성남 주택가 골목에 있는 작은 카페입니다. 혼자 오셔도 편하도록 자리를 넓게 두었습니다.</p>
+              <div style="margin-top:var(--space-8);display:flex;flex-wrap:wrap;gap:var(--space-3);white-space:nowrap">
+                <button type="button" class="hm-btn hm-btn-primary" data-goto="menu">메뉴 보기</button>
+                <button type="button" class="hm-btn hm-btn-secondary" data-goto="visit">찾아오는 길</button>
+              </div>
+            </div>
+            <img class="hm-img" data-ratio="4/3" src="assets/images/img_hero.jpg" alt="매장 내부, 창가 좌석">
+          </div>
+        </div>
+      </section>
+
+      <section class="hm-container hm-section">
+        <div class="hm-section-heading" data-level="section">
+          <h2 class="hm-heading-title">이곳은 이런 곳입니다</h2>
+          <p class="hm-heading-desc">필요한 정보만 적어 두었습니다.</p>
+        </div>
+        <div class="hm-cards hm-cards-3" style="margin-top:var(--space-8)">
+          <div class="hm-card">
+            <h3 style="font-size:var(--text-subtitle);font-weight:var(--weight-medium);line-height:var(--leading-subtitle)">혼자도 오기 좋은 자리</h3>
+            <p style="margin-top:var(--heading-gap);font-size:var(--text-body-sm);line-height:var(--leading-body-sm);color:var(--ink-muted)">1인석과 창가 자리가 있습니다.</p>
+          </div>
+          <div class="hm-card">
+            <h3 style="font-size:var(--text-subtitle);font-weight:var(--weight-medium);line-height:var(--leading-subtitle)">오래 머무르셔도 됩니다</h3>
+            <p style="margin-top:var(--heading-gap);font-size:var(--text-body-sm);line-height:var(--leading-body-sm);color:var(--ink-muted)">콘센트와 와이파이가 있습니다.</p>
+          </div>
+          <div class="hm-card">
+            <h3 style="font-size:var(--text-subtitle);font-weight:var(--weight-medium);line-height:var(--leading-subtitle)">조용한 편입니다</h3>
+            <p style="margin-top:var(--heading-gap);font-size:var(--text-body-sm);line-height:var(--leading-body-sm);color:var(--ink-muted)">음악은 낮게 틀어 둡니다.</p>
+          </div>
+        </div>
+        <img class="hm-img" data-ratio="16/9" src="assets/images/img_home_band.jpg" alt="매장 내부 좌석" style="margin-top:var(--space-8)">
+      </section>
+
+      <section style="background:var(--surface-warm)">
+        <div class="hm-container hm-section">
+          <div class="hm-split">
+            <div>
+              <h2 class="hm-h2">영업시간</h2>
+              <div style="margin-top:var(--heading-gap)">
+                <table class="hm-info-table">
+                  <tr><td>평일</td><td>10:00 - 21:00</td></tr>
+                  <tr><td>주말</td><td>11:00 - 20:00</td></tr>
+                  <tr><td>휴무</td><td>매주 월요일</td></tr>
+                </table>
+              </div>
+              <div style="margin-top:var(--space-6)">
+                <button type="button" class="hm-btn hm-btn-text" data-goto="visit">찾아오는 길 보기</button>
+              </div>
+            </div>
+            <div class="hm-notice">
+              <p class="hm-notice-title">공지 자리</p>
+              <p class="hm-notice-body">전할 내용이 있을 때만 이 자리를 씁니다. 없으면 비워 둡니다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 메뉴 -->
+    <div data-tabpanel="menu">
+      <div class="hm-container hm-section">
+        <div class="hm-section-heading" data-level="title">
+          <h2 class="hm-heading-title">메뉴</h2>
+          <p class="hm-heading-desc">가격은 부가세를 포함한 금액입니다.</p>
+        </div>
+        <div class="hm-split" style="margin-top:var(--space-12);align-items:start">
+          <div>
+            <h3 style="font-size:var(--text-subtitle);font-weight:var(--weight-medium)">커피</h3>
+            <div style="margin-top:var(--space-2)">
+              <div class="hm-price-row">
+                <span class="hm-price-name">드립 커피<span class="hm-price-note">그날의 원두로 내립니다.</span></span>
+                <span class="hm-price-amount hm-tabular">5,000원</span>
+              </div>
+              <div class="hm-price-row">
+                <span class="hm-price-name">아메리카노</span>
+                <span class="hm-price-amount hm-tabular">4,000원</span>
+              </div>
+              <div class="hm-price-row">
+                <span class="hm-price-name">카페 라떼</span>
+                <span class="hm-price-amount hm-tabular">4,500원</span>
+              </div>
+              <div class="hm-price-row">
+                <span class="hm-price-name">디카페인 아메리카노</span>
+                <span class="hm-price-amount hm-tabular">4,500원</span>
+              </div>
+            </div>
+            <hr class="hm-divider">
+            <h3 style="font-size:var(--text-subtitle);font-weight:var(--weight-medium)">그 외</h3>
+            <div style="margin-top:var(--space-2)">
+              <div class="hm-price-row">
+                <span class="hm-price-name">홍차</span>
+                <span class="hm-price-amount hm-tabular">5,000원</span>
+              </div>
+              <div class="hm-price-row">
+                <span class="hm-price-name">우유</span>
+                <span class="hm-price-amount hm-tabular">3,000원</span>
+              </div>
+            </div>
+            <p style="margin-top:var(--space-6);font-size:var(--text-caption);line-height:var(--leading-caption);color:var(--ink-muted)">실제 메뉴와 가격이 정해지면 이 목록을 교체해 주세요. 확인되지 않은 항목은 넣지 않았습니다.</p>
+          </div>
+          <div class="hm-card">
+            <img class="hm-img" data-ratio="1/1" src="assets/images/img_black_latte.jpg" alt="흑임자 라떼" style="margin-top:var(--space-4)">
+            <p style="margin-top:var(--space-4);font-size:var(--text-body-sm);line-height:var(--leading-body-sm);color:var(--ink-muted)">드립 커피, 홍차 등 다른 메뉴 사진은 준비되는 대로 추가합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 라떼아트 클래스 -->
+    <div data-tabpanel="class">
+      <div class="hm-container hm-section">
+        <div class="hm-section-heading" data-level="title">
+          <h2 class="hm-heading-title">라떼아트 원데이 클래스</h2>
+          <p class="hm-heading-desc">직접 만들어보는 라떼아트 원데이 클래스입니다.</p>
+        </div>
+        <div style="margin-top:var(--space-12);align-items:flex-start;display:flex;flex-wrap:wrap;gap:var(--space-8)">
+          <div style="flex:1 1 320px;min-width:280px">
+            <img class="hm-img" data-ratio="1/1" src="assets/images/img_cafelate.jpg" alt="라떼아트 원데이 클래스">
+          </div>
+          <div style="flex:1 1 320px;min-width:280px">
+            <p style="font-size:var(--text-title);font-weight:var(--weight-semibold);color:var(--accent);letter-spacing:var(--tracking-title)" class="hm-tabular">55,000원</p>
+            <p style="margin-top:var(--heading-gap);font-size:var(--text-body);line-height:var(--leading-body);color:var(--ink-muted);max-width:var(--measure)">라떼 위에 그림을 그려 보는 시간입니다. 처음이어도 편하게 오시면 됩니다.</p>
+            <div style="margin-top:var(--space-8)">
+              <table class="hm-info-table">
+                <tr><td>시간</td><td>2시간</td></tr>
+                <tr><td>정원</td><td>4명</td></tr>
+                <tr><td>가격</td><td>55,000원</td></tr>
+                <tr><td>준비물</td><td>없음 (앞치마·재료 준비되어 있음)</td></tr>
+              </table>
+            </div>
+            <div style="margin-top:var(--space-8);display:flex;flex-wrap:wrap;gap:var(--space-3)">
+              <a class="hm-btn hm-btn-primary" href="tel:0310001234">전화로 문의하기</a>
+              <a class="hm-btn hm-btn-secondary" href="mailto:hanmogeum@example.com">이메일 보내기</a>
+            </div>
+            <div style="margin-top:var(--space-8)">
+              <div class="hm-notice">
+                <p class="hm-notice-title">준비물</p>
+                <p class="hm-notice-body">앞치마와 재료는 준비되어 있습니다. 따로 챙겨 오실 준비물은 없습니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 찾아오는 길 -->
+    <div data-tabpanel="visit">
+      <div class="hm-container hm-section">
+        <div class="hm-section-heading" data-level="title">
+          <h2 class="hm-heading-title">찾아오는 길</h2>
+          <p class="hm-heading-desc">주택가 골목에 있습니다. 간판이 작으니 천천히 찾아 주세요.</p>
+        </div>
+        <div class="hm-split" style="margin-top:var(--space-12);align-items:start">
+          <div>
+            <table class="hm-info-table">
+              <tr><td>주소</td><td>경기 성남시 분당구 경기남부 AI 캠퍼스</td></tr>
+              <tr><td>전화</td><td><a href="tel:0310000000">031-000-0000</a></td></tr>
+              <tr><td>평일</td><td>10:00 - 21:00</td></tr>
+              <tr><td>주말</td><td>11:00 - 20:00</td></tr>
+              <tr><td>휴무</td><td>매주 월요일</td></tr>
+            </table>
+            <div style="margin-top:var(--space-8)">
+              <a class="hm-btn hm-btn-primary" href="tel:0310000000">전화로 문의하기</a>
+            </div>
+            <div style="margin-top:var(--space-8)">
+              <div class="hm-notice">
+                <p class="hm-notice-title">주차</p>
+                <p class="hm-notice-body">주차 정보는 확인 후 채웁니다.</p>
+              </div>
+            </div>
+          </div>
+          <div class="hm-card">
+            <img class="hm-img" data-ratio="4/3" src="assets/images/img_visit_exterior.jpg" alt="매장 입구 외관">
+            <img class="hm-img" data-ratio="16/9" src="assets/images/img_map.jpg" alt="경기남부 AI 캠퍼스 위치 약도" style="margin-top:var(--space-4)">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="hm-footer">
+    <div class="hm-footer-inner">
+      <p class="hm-footer-brand">한모금</p>
+      <p class="hm-footer-meta">경기 성남시 분당구 경기남부 AI 캠퍼스 · 031-000-0000</p>
+      <ul class="hm-footer-notes">
+        <li>매주 월요일 휴무</li>
+        <li>주소·연락처는 확인된 정보로 교체해 주세요.</li>
+      </ul>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var panels = document.querySelectorAll('[data-tabpanel]');
+  var navLinks = document.querySelectorAll('[data-tab-link]');
+
+  function showTab(id){
+    panels.forEach(function(p){
+      p.classList.toggle('is-active', p.getAttribute('data-tabpanel') === id);
+    });
+    navLinks.forEach(function(a){
+      if (a.getAttribute('data-tab-link') === id) {
+        a.setAttribute('aria-current', 'page');
+      } else {
+        a.removeAttribute('aria-current');
+      }
+    });
+    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+  }
+
+  function tabFromHash(){
+    var id = (location.hash || '#home').replace('#', '');
+    var valid = ['home', 'menu', 'class', 'visit'];
+    return valid.indexOf(id) !== -1 ? id : 'home';
+  }
+
+  navLinks.forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var id = a.getAttribute('data-tab-link');
+      history.pushState(null, '', '#' + id);
+      showTab(id);
+    });
+  });
+
+  document.querySelectorAll('[data-goto]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var id = btn.getAttribute('data-goto');
+      history.pushState(null, '', '#' + id);
+      showTab(id);
+    });
+  });
+
+  window.addEventListener('popstate', function(){
+    showTab(tabFromHash());
+  });
+
+  showTab(tabFromHash());
+})();
+</script>
+</body>
+</html>
